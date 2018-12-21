@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 14:22:07 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 19:53:51 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 21:47:50 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,6 +33,7 @@ t_tree	*ft_init_tree(void)
 	tree->y = 0;
 	tree->id = 0;
 	tree->r_name = NULL;
+	tree->nodes = NULL;
 	return (tree);
 }
 

@@ -6,7 +6,7 @@
 #    By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/24 17:57:21 by thbrouss     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/21 19:54:15 by thbrouss    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/21 21:40:49 by thbrouss    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -23,7 +23,8 @@ INCLUDE = ./includes
 
 ALL=parse_input\
 get_next_line\
-ft_init_struct
+ft_init_struct\
+build_tree
 
 #----------------------------------SOURCE--------------------------------------#
 

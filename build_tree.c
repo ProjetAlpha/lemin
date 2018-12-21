@@ -6,63 +6,63 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 18:39:26 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 20:27:13 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 21:55:08 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "lemin.h"
+#include <stdio.h>
 
 // asscocie tout les links avec le noeud correspondant.
 // une fois qu on a plus de link pour ce noeud, cherche les bifurcations.
 
 void	set_first_node(t_tree *tree, t_data *data)
 {
-	tree->x = data->start_x;
-	tree->y = data->start_y;
+	tree->x = data->x_start;
+	tree->y = data->y_start;
 	tree->r_name = data->start;
 }
 
 
-void	add_nodes(t_tree *tree, t_nodes *current, int n)
-{
-	int i;
-	t_nodes **nodes;
-	
-	i = 0;
-	nodes = malloc(sizeof(t_nodes *) * n);
-	while (i < n)
-	{
-				
-		i++;
-	}	
-}	
-
-
-void	set_nodes(t_tree *tree, t_links *links, char *r_name)
+t_nodes	*set_nodes(t_tree *tree, t_links *links, char *r_name)
 {
 	t_links *begin;
-	t_nodes **nodes;
 	int i;
-	
-	i = 0;	
+	int c_nodes;
+
+	i = 0;
+	c_nodes = 0;	
 	begin = links;
 	while (links)
 	{
-		if (!ft_strcmp(r_name, links->a) || !ft_strcmp(r_name, links->b))
-			c_nodes++;
+
+		if (r_name != NULL)
+		{
+			if (links->a != 0 || links->b != 0)
+			{
+				if (!ft_strcmp(r_name, links->a) || !ft_strcmp(r_name, links->b))
+					c_nodes++;
+			}
+		}
 		links = links->next;
 	}
-	nodes = malloc(sizeof(t_nodes *) * c_nodes);
+	//printf(" NOOODES %d\n", c_nodes);
+	if (tree->nodes == NULL)
+		tree->nodes = malloc(sizeof(t_nodes *) * c_nodes);
 	// pour chaque node on veut creer des news nodes.
-	while (i < c_nodes)
+	while (i < c_nodes && begin)
 	{
-		
+		tree->nodes[i] = malloc(sizeof(t_nodes));
+		tree->nodes[i]->r_name = begin->a;
+		tree->nodes[i] = set_nodes(tree, links, begin->b);
+		begin = begin->next;
 		i++;
 	}
+	return (tree->nodes[i]);	
 }
 
-void	build_tree(t_tree *tree, t_data *data, t_room *room, t_links *links)
+/*void	build_tree(t_tree *tree, t_data *data, t_room *room, t_links *links)
 {
 	t_tree *begin;
 	t_links *b_links;
@@ -88,5 +88,5 @@ void	build_tree(t_tree *tree, t_data *data, t_room *room, t_links *links)
 			tmp = tmp->next;
 		}
 		links = links->next;
-	}		
-}
+	}
+}*/

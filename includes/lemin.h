@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:37:55 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 20:00:33 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 21:45:40 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -74,5 +74,7 @@ t_links	*ft_init_links(void);
 t_nodes	*ft_init_nodes(void);
 t_data	*ft_init_data(void);
 int		get_next_line(const int fd, char **line);
+t_nodes	*set_nodes(t_tree *tree, t_links *links, char *r_name);
+
 
 #endif

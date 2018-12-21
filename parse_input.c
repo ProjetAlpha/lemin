@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:39:21 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 19:53:38 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 21:46:28 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -188,5 +188,6 @@ int	main(void)
 	data = ft_init_data();
 	links = ft_init_links();
 	room = ft_init_room();
-	parse_entry(data, links, room);	
+	parse_entry(data, links, room);
+	set_nodes(tree, links, data->start);	
 }
