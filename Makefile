@@ -6,7 +6,7 @@
 #    By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/24 17:57:21 by thbrouss     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/21 16:20:31 by thbrouss    ###    #+. /#+    ###.fr      #
+#    Updated: 2018/12/21 19:54:15 by thbrouss    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -40,7 +40,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "\033[1m|---------LIBFT COMPILE--------------|\033[0m"
 	@$(MAKE) -C libft/
-	@echo "\033[1m|---------FILLER COMPILE--------------|\033[0m"
+	@echo "\033[1m|---------LEMIN COMPILE--------------|\033[0m"
 	@$(CC) $(FLAGS) -L libft/ -lft $(OBJ) -o $(NAME)
 
 %.o: %.c ./includes/lemin.h

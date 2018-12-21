@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 18:39:26 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 19:28:15 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 20:27:13 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -21,15 +21,45 @@ void	set_first_node(t_tree *tree, t_data *data)
 	tree->x = data->start_x;
 	tree->y = data->start_y;
 	tree->r_name = data->start;
-	tree->next = ft_init_tree();
-	tree = tree->next;
 }
+
+
+void	add_nodes(t_tree *tree, t_nodes *current, int n)
+{
+	int i;
+	t_nodes **nodes;
+	
+	i = 0;
+	nodes = malloc(sizeof(t_nodes *) * n);
+	while (i < n)
+	{
+				
+		i++;
+	}	
+}	
+
 
 void	set_nodes(t_tree *tree, t_links *links, char *r_name)
 {
-	t_nodes *nodes;
+	t_links *begin;
+	t_nodes **nodes;
+	int i;
 	
+	i = 0;	
+	begin = links;
+	while (links)
+	{
+		if (!ft_strcmp(r_name, links->a) || !ft_strcmp(r_name, links->b))
+			c_nodes++;
+		links = links->next;
+	}
+	nodes = malloc(sizeof(t_nodes *) * c_nodes);
+	// pour chaque node on veut creer des news nodes.
+	while (i < c_nodes)
+	{
 		
+		i++;
+	}
 }
 
 void	build_tree(t_tree *tree, t_data *data, t_room *room, t_links *links)

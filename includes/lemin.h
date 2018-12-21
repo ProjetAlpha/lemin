@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:37:55 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 18:17:36 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/21 20:00:33 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,7 @@ typedef struct	s_nodes
 	int		y;
 	int		id;
 	char	*r_name;
-	struct s_nodes *next;
+	struct s_nodes **next;
 }				t_nodes;
 
 typedef struct	s_tree
@@ -65,8 +65,7 @@ typedef struct	s_tree
 	int		y;
 	int		id;
 	char	*r_name;
-	t_nodes *nodes;
-	struct s_map *next;
+	t_nodes **nodes;
 }				t_tree;
 
 t_tree	*ft_init_tree(void);
