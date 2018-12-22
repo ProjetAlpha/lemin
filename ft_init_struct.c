@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 14:22:07 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 21:47:50 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/22 21:24:56 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,7 +33,7 @@ t_tree	*ft_init_tree(void)
 	tree->y = 0;
 	tree->id = 0;
 	tree->r_name = NULL;
-	tree->nodes = NULL;
+	tree->root = NULL;
 	return (tree);
 }
 
@@ -44,8 +44,12 @@ t_nodes		*ft_init_nodes(void)
 	nodes->x = 0;
 	nodes->y = 0;
 	nodes->id = 0;
+	nodes->is_set = 0;
 	nodes->r_name = NULL;
-	nodes->next = NULL;
+	nodes->c_childs = 0;
+	nodes->link_a = NULL;
+	nodes->link_b = NULL;
+	nodes->childs = NULL;
 	return (nodes);
 }
 

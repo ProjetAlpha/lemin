@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:37:55 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/21 21:45:40 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/22 21:22:33 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -55,8 +55,12 @@ typedef struct	s_nodes
 	int		x;
 	int		y;
 	int		id;
+	int		is_set;
+	int		c_childs;
+	char	*link_a;
+	char	*link_b;
 	char	*r_name;
-	struct s_nodes **next;
+	struct s_nodes **childs;
 }				t_nodes;
 
 typedef struct	s_tree
@@ -65,7 +69,7 @@ typedef struct	s_tree
 	int		y;
 	int		id;
 	char	*r_name;
-	t_nodes **nodes;
+	t_nodes *root;
 }				t_tree;
 
 t_tree	*ft_init_tree(void);
@@ -74,7 +78,6 @@ t_links	*ft_init_links(void);
 t_nodes	*ft_init_nodes(void);
 t_data	*ft_init_data(void);
 int		get_next_line(const int fd, char **line);
-t_nodes	*set_nodes(t_tree *tree, t_links *links, char *r_name);
-
+t_nodes	**set_nodes(t_nodes *root, t_links *links, char *r_name, int dept, t_nodes *begin);
 
 #endif
