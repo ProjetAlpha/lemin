@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 18:39:26 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/22 23:57:43 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2018/12/23 17:58:04 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -14,10 +14,7 @@
 #include "lemin.h"
 #include <stdio.h>
 
-// asscocie tout les links avec le noeud correspondant.
-// une fois qu on a plus de link pour ce noeud, cherche les bifurcations.
-
-void	find_links(t_links *links, t_nodes *nodes, char *r_name, int depth)
+void	find_links(t_links *links, t_nodes *nodes, char *r_name)
 {
 	t_links		*begin;
 	int			is_set;
@@ -32,7 +29,7 @@ void	find_links(t_links *links, t_nodes *nodes, char *r_name, int depth)
 		{
 			if (begin->a != 0 || begin->b != 0)
 			{
-				if (!ft_strcmp(r_name, begin->a) && is_set == 0 && depth == c_nodes)
+				if (!ft_strcmp(r_name, begin->a) && is_set == 0)
 				{
 					nodes->link_a = begin->a;
 					nodes->link_b = begin->b;
@@ -85,8 +82,6 @@ t_nodes		*search_node(t_nodes *root, char *r_name)
 
 	i = 0;
 	t_nodes *tmp;
-	//printf("seg\n");
-	printf("A : %s | B : %s\n", root->link_a, root->link_b);
 	if (root->link_b == NULL)
 		return (NULL);
 	if (!ft_strcmp(root->link_b, r_name))
@@ -132,55 +127,33 @@ t_nodes	**set_nodes(t_nodes *root, t_links *links, char *r_name, int depth, t_no
 {
 	int			i;
 	int			is_next;
+	char		*tmp;
 	t_nodes		*n_begin;
 
 	n_begin = begin;
 	i = 0;
 	is_next = 0;	
-	find_links(links, root, r_name, depth);
-	/*if (root->link_b == 0)
-	  {
-	  depth = 0;
-	  root->c_childs = 0;
-	  printf("room before : %s\n", r_name);
-	// find 1 nodes avec des childs.
-	// doit retourner
-	root = find_next(links, r_name, n_begin);
-	printf("room after : %s\n", r_name);
-
-	// root childs = x.
-	is_next = 1;
-	//c_next++;
-	// enlever ce qui sont
-	}*/
-	printf("NOOODES %d --- DEPTH %d --- ROOM %s\n", root->c_childs, depth, r_name);
+	find_links(links, root, r_name);
+	if (root->c_childs == 0)
+		return (NULL);
 	printf(" LINK A : %s  | LINK B : %s \n", root->link_a, root->link_b);
-	if (root->childs == NULL)
-		root->childs = malloc(sizeof(t_nodes *) * root->c_childs);
+	//if (root->childs == NULL)
+	root->childs = malloc(sizeof(t_nodes *) * root->c_childs);
 	i = 0;	
 	while (i < root->c_childs)
 	{
-		printf("seg\n");
-		if (root->childs[i] == NULL)
-			root->childs[i] = malloc(sizeof(t_nodes));
+		root->childs[i] = malloc(sizeof(t_nodes));
 		root->childs[i]->r_name = root->link_b;
-		// is_next ? root->link_b :root->link_a;
-		// find_next ... avec i, jusqu' a contruire la branche.
-		//root = root->childs[i];
-		//sleep(1);
-		//set_nodes(root, links, root->r_name, depth, begin);
-		printf("seg\n");
-		
-		get_next(links, root, root->link_a, i);
+		get_next(links, root->childs[i], root->link_a, i);
+		// OK -- printf("root link a %s | root link b %s\n", root->childs[i]->link_a, root->childs[i]->link_b);
 		i++;
 	}
 	i = 0;
 	while (i < root->c_childs)
 	{
-		root = root->childs[i];
-		sleep(1);
-		printf("sef\n");
-		set_nodes(root, links, root->link_b, depth++, begin);
+		tmp = root->childs[i]->link_b;
+	   	sleep(1);	
+		set_nodes(root->childs[i], links, tmp, depth, begin);
 		i++;
 	}
 	return (NULL);
