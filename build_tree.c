@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 18:39:26 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/06 22:34:48 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/06 22:46:06 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -125,11 +125,7 @@ void	get_next(t_links *links, t_nodes *nodes, char *r_name, int depth)
 					begin->is_set = 1;
 					is_a = 1;
 				}
-				
-				if (!ft_strcmp(r_name, begin->b) && is_set == 0 && begin->is_set == 0 && depth - 1 == c_nodes)
-					printf("foudned link a %s link b %s\n", begin->a, begin->b);
-				
-				if (!ft_strcmp(r_name, begin->b) && is_set == 0 && depth == c_nodes && begin->is_set == 0)
+				else if (!ft_strcmp(r_name, begin->b) && is_set == 0 && depth - 1 == c_nodes && begin->is_set == 0)
 				{
 					nodes->link_a = begin->b;
 					nodes->link_b = begin->a;
@@ -137,6 +133,8 @@ void	get_next(t_links *links, t_nodes *nodes, char *r_name, int depth)
 					is_set = 1;
 					is_b = 1;
 				}
+				if (!ft_strcmp(r_name, begin->b) && is_set == 0 && begin->is_set == 0 && depth - 1 == c_nodes)
+					printf("foudned link a %s link b %s\n", begin->a, begin->b);
 				if (!ft_strcmp(r_name, begin->b) || !ft_strcmp(r_name, begin->a))
 					c_nodes++;
 				/*if (!ft_strcmp(r_name, begin->a) && is_a == 1)
@@ -184,7 +182,7 @@ t_nodes	**set_nodes(t_nodes *root, t_links *links, char *r_name, int depth, t_no
 	{
 		root->childs[i] = (t_nodes *)malloc(sizeof(t_nodes));
 		root->childs[i]->r_name = root->link_b;
-		get_next(links, root->childs[i], root->link_a, i);	
+		get_next(links, root->childs[i], root->link_a, i);
 		printf(" LINK A : %s  | LINK B : %s | DEPTH : %d \n", root->childs[i]->link_a, root->childs[i]->link_b, depth);
 		i++;
 	}
