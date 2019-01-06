@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:37:55 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/22 21:22:33 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/06 18:56:52 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -34,6 +34,7 @@ typedef struct	s_links
 {
 	char *a;
 	char *b;
+	int	 is_set;
 	struct	s_links *next;
 }				t_links;
 
