@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 14:22:07 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/06 21:40:17 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/08 17:18:42 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -70,6 +70,7 @@ t_links		*ft_init_links(void)
 	links = malloc(sizeof(t_links));
 	links->a = 0;
 	links->is_set = 0;
+	links->is_in = 0;
 	links->b = 0;
 	links->next = NULL;
 	return (links);

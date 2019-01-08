@@ -6,7 +6,7 @@
 #    By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/24 17:57:21 by thbrouss     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/21 21:40:49 by thbrouss    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/08 17:29:30 by thbrouss    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -24,7 +24,8 @@ INCLUDE = ./includes
 ALL=parse_input\
 get_next_line\
 ft_init_struct\
-build_tree
+build_tree\
+ft_order_link
 
 #----------------------------------SOURCE--------------------------------------#
 
@@ -42,7 +43,7 @@ $(NAME): $(OBJ)
 	@echo "\033[1m|---------LIBFT COMPILE--------------|\033[0m"
 	@$(MAKE) -C libft/
 	@echo "\033[1m|---------LEMIN COMPILE--------------|\033[0m"
-	@$(CC) $(FLAGS) -L libft/ -lft $(OBJ) -o $(NAME)
+	@$(CC) $(FLAGS) -L libft/ -lft -g $(OBJ) -o $(NAME)
 
 %.o: %.c ./includes/lemin.h
 	@$(CC) $(FLAGS) -I$(INCLUDE) -c $< -o $@

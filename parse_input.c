@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:39:21 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2018/12/22 20:24:26 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/08 21:27:01 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -141,15 +141,15 @@ void	parse_entry(t_data *data, t_links *links, t_room *room)
 		}
 		else
 		{	
-			if (data->is_start)
+			if (data->is_start == 1)
 			{
 				set_data(data, line, 1);
-				data->is_start = 0; 
+				data->is_start = 2; 
 			}
-			else if (data->is_end)
+			else if (data->is_end == 1)
 			{
 				set_data(data, line, 2);
-				data->is_end = 0;
+				data->is_end = 2;
 			}
 			else
 			{
@@ -164,16 +164,16 @@ void	parse_entry(t_data *data, t_links *links, t_room *room)
 					links = links->next;
 				}
 			}
-			if (!ft_strncmp("##start", line, 7))
+			if (!ft_strncmp("##start", line, 7) && data->is_start != 2)
 				data->is_start = 1;
-			else if (!ft_strncmp("##end", line, 5))
+			else if (!ft_strncmp("##end", line, 5) && data->is_start != 2)
 				data->is_end = 1;
 		}
 		c_line++;
 	}
 	// DEBUG ROOM AND LINKS 
 	// print_room(r_begin);
-	// print_links(l_begin);
+	//print_links(l_begin);
 	// build_tree(tree, data, room, links);
 }
 
@@ -182,8 +182,10 @@ int	main(void)
 	t_room *room;
 	t_data	*data;
 	t_links	*links;
+	t_links *begin_l;
 	t_tree	*tree;
 	t_nodes *root;
+	t_dlinks **dlinks;
 	t_nodes *begin;
 	int c_next;
 	int depth;
@@ -193,11 +195,16 @@ int	main(void)
 	tree = ft_init_tree();
 	data = ft_init_data();
 	links = ft_init_links();
+	begin_l = links;
 	room = ft_init_room();
 	root = ft_init_nodes();
 	begin = root;
 	parse_entry(data, links, room);
+	//printf("seg\n");
 	root->r_name = data->start;
-	set_nodes(root, links, data->start, depth, begin);
+
+	dlinks = ft_sort_link(begin_l, data);
+	//printf("seg\n");
+	set_nodes(root, dlinks, data->start, depth, begin);
 	tree->root = begin;
 }

@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:37:55 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/06 18:56:52 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/08 19:35:26 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,12 +29,21 @@ typedef struct	s_room
 	struct	s_room	*next;
 }				t_room;
 
+typedef struct	s_dlinks
+{
+	char	*a;
+	char	*b;
+	int		size;
+	int		is_set;
+	struct	s_dlinks **next;
+}				t_dlinks;			
 
 typedef struct	s_links
 {
 	char *a;
 	char *b;
 	int	 is_set;
+	int	 is_in;
 	struct	s_links *next;
 }				t_links;
 
@@ -57,6 +66,7 @@ typedef struct	s_nodes
 	int		y;
 	int		id;
 	int		is_set;
+	int		pos;
 	int		c_childs;
 	char	*link_a;
 	char	*link_b;
@@ -79,6 +89,7 @@ t_links	*ft_init_links(void);
 t_nodes	*ft_init_nodes(void);
 t_data	*ft_init_data(void);
 int		get_next_line(const int fd, char **line);
-t_nodes	**set_nodes(t_nodes *root, t_links *links, char *r_name, int dept, t_nodes *begin);
+t_nodes	**set_nodes(t_nodes *root, t_dlinks **links, char *r_name, int dept, t_nodes *begin);
+t_dlinks **ft_sort_link(t_links *links, t_data *data);
 
 #endif
