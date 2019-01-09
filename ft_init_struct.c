@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/21 14:22:07 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 17:18:42 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/09 19:55:29 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -20,6 +20,8 @@ t_data	*ft_init_data(void)
 	data->start = NULL;
 	data->end = NULL;
 	data->n_ants = 0;
+	data->have_end = 0;
+	data->have_link = 0;
 	data->is_end = 0;
 	data->is_start = 0;
 	return (data);
@@ -46,6 +48,7 @@ t_nodes		*ft_init_nodes(void)
 	nodes->id = 0;
 	nodes->is_set = 0;
 	nodes->r_name = NULL;
+	nodes->weight = 0;
 	nodes->c_childs = 0;
 	nodes->link_a = NULL;
 	nodes->link_b = NULL;
@@ -71,6 +74,7 @@ t_links		*ft_init_links(void)
 	links->a = 0;
 	links->is_set = 0;
 	links->is_in = 0;
+	links->is_duplicate = 0;
 	links->b = 0;
 	links->next = NULL;
 	return (links);

@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:39:21 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 21:27:01 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/09 21:10:42 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -50,6 +50,7 @@ int		set_room(t_room *room, char *line)
 	split = ft_strsplit(line, ' ');
 	while (split[i])
 		i++;
+	printf("1 - %s | 2 - %s\n", split[0], split[1]);
 	if (i != 3)
 		return (0);
 	room->name = is_valid_room(split[0]) ? split[0] : NULL;
@@ -57,10 +58,11 @@ int		set_room(t_room *room, char *line)
 	room->y = is_number(split[2]) ? ft_atoi(split[2]) : -1;
 	if (room->x != -1 && room->y != -1 && room->name != NULL)
 		return (1);
+	printf("room x : %d | room y : %d | name : %s\n", room->x, room->y, room->name);
 	return (0);
 }
 
-int		set_links(t_links *links, char *line)
+int		set_links(t_links *links, char *line, t_data *data)
 {
 	int i;
 	char **split;
@@ -73,6 +75,11 @@ int		set_links(t_links *links, char *line)
 	   return (0);
 	links->a = split[0];
 	links->b = split[1];
+	printf("%s\n", links->a);
+	if (!ft_strcmp(links->a, links->b))
+		return (0);	
+	if (!ft_strcmp(links->a, data->end) || !ft_strcmp(links->b, data->end))
+		data->have_end = 1;
 	return (1);
 }
 
@@ -82,7 +89,7 @@ void	set_data(t_data *data, char *line, int type)
 	char **split;
 
 	i = 0;
-	split = ft_strsplit(line, ' ');
+	split = ft_split_whitespaces(line);
 	while (split[i])
 		i++;
 	if (i != 3)
@@ -134,7 +141,13 @@ void	parse_entry(t_data *data, t_links *links, t_room *room)
 	l_begin = links;
 	while (get_next_line(0, &line))
 	{
-		if (c_line == 0)
+		if (line[0] == ' ')
+			return ;
+		if (!ft_strncmp("##start", line, 7) && data->is_start == 2)
+				return ;
+			else if (!ft_strncmp("##end", line, 5) && data->is_end == 2)
+				return ;
+		if (data->n_ants == 0)
 		{	
 			if (is_number(line))
 				data->n_ants = ft_atoi(line);
@@ -144,29 +157,32 @@ void	parse_entry(t_data *data, t_links *links, t_room *room)
 			if (data->is_start == 1)
 			{
 				set_data(data, line, 1);
-				data->is_start = 2; 
+				data->is_start = 2;
 			}
 			else if (data->is_end == 1)
 			{
 				set_data(data, line, 2);
 				data->is_end = 2;
 			}
-			else
+			else if (ft_strncmp("##start", line, 7) != 0 && ft_strncmp("##end", line, 5) != 0
+					&& ft_strchr(line, '#') == NULL)
 			{
-				if (set_room(room, line))
+				if (set_room(room, line) == 1)
 				{
 					room->next = ft_init_room();
 					room = room->next;
 				}
-				if (set_links(links, line))
+				else if (set_links(links, line, data) == 1)
 				{
+					data->have_link = 1;
 					links->next = ft_init_links();
 					links = links->next;
-				}
+				}else
+					return ;
 			}
 			if (!ft_strncmp("##start", line, 7) && data->is_start != 2)
 				data->is_start = 1;
-			else if (!ft_strncmp("##end", line, 5) && data->is_start != 2)
+			else if (!ft_strncmp("##end", line, 5) && data->is_end != 2)
 				data->is_end = 1;
 		}
 		c_line++;
@@ -200,11 +216,13 @@ int	main(void)
 	root = ft_init_nodes();
 	begin = root;
 	parse_entry(data, links, room);
-	//printf("seg\n");
-	root->r_name = data->start;
-
-	dlinks = ft_sort_link(begin_l, data);
-	//printf("seg\n");
-	set_nodes(root, dlinks, data->start, depth, begin);
-	tree->root = begin;
+	if (data->is_start == 2 && data->is_end == 2 && data->n_ants > 0
+			&& data->have_link == 1 && data->have_end == 1)
+	{
+		root->r_name = data->start;
+		dlinks = ft_sort_link(begin_l, data);
+		set_nodes(root, dlinks, data->start, depth, begin);
+		tree->root = begin;
+	}else
+		write(1, "ERROR", 5);
 }

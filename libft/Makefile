@@ -6,7 +6,7 @@
 #    By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/02 13:53:57 by thbrouss     #+#   ##    ##    #+#        #
-#    Updated: 2018/12/11 16:55:53 by thbrouss    ###    #+. /#+    ###.fr      #
+#    Updated: 2019/01/09 18:59:15 by thbrouss    ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -81,7 +81,8 @@ ft_tolower\
 ft_toupper\
 ft_realloc\
 ft_strcount\
-ft_strrev
+ft_strrev\
+ft_split_whitespaces
 
 SRC=$(addsuffix .c, $(FILE))
 

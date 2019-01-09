@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/01/07 15:00:46 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 20:04:27 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/09 18:30:44 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -23,15 +23,14 @@ int		get_size(t_links *links, t_data *data, char *r_name, int is_start)
 	size = 0;
 	while (begin && begin->a != NULL && begin->b != NULL)
 	{
-		//printf("link a --- %s | link b -- %s \n", begin->a, begin->b);
-		if (is_start == 0 && begin->is_in == 0)
+		if (is_start == 0 && begin->is_in == 0 && begin->is_duplicate == 0)
 		{
 			if (!ft_strcmp(data->start, begin->a)) 
 				size++;
 			else if (!ft_strcmp(data->start, begin->b))
 				size++;
 		}
-		else if (begin->is_in == 0)
+		else if (begin->is_in == 0 && begin->is_duplicate == 0)
 		{
 			if (!ft_strcmp(r_name, begin->a)) 
 				size++;
@@ -59,13 +58,13 @@ t_dlinks	**ft_sort_link(t_links *links, t_data *data)
 	t_dlinks **dlinks;
 	t_dlinks **dbegin;
 	int 	is_start;
+	int		c_links;
 	int 	size;
 	int		i;
 	char	*r_name;
 
 	begin = links;
 	is_start = 0;
-
 	size = get_size(begin, data, begin->a, is_start);
 	dlinks = malloc(sizeof(t_dlinks*) * size);
 	ft_alloc_links(dlinks, size);
@@ -77,10 +76,19 @@ t_dlinks	**ft_sort_link(t_links *links, t_data *data)
 		//printf("size 1 %d\n", size);
 		r_name = begin->a;
 		i = 0;
+		c_links = 0;
 		while (tmp && tmp->a != NULL && tmp->b != NULL && r_name != NULL && size != 0)
 		{
+			if ((!ft_strcmp(tmp->a, begin->a) && !ft_strcmp(tmp->b, begin->b))
+					|| (!ft_strcmp(tmp->b, begin->a) && !ft_strcmp(tmp->a, begin->b)))
+				c_links++;
+			if (c_links > 1)
+			{
+				tmp->is_duplicate = 1;
+				printf("duplicate  : a  %s | b %s \n", tmp->a, tmp->b);
+			}
 			//printf(" tmp a %s\n", tmp->a);	
-			if (is_start == 0 && i < size && size > 0 && tmp->is_in == 0)
+			if (is_start == 0 && i < size && size > 0 && tmp->is_in == 0 && tmp->is_duplicate == 0)
 			{
 				if (!ft_strcmp(data->start, tmp->a))
 				{
@@ -99,7 +107,7 @@ t_dlinks	**ft_sort_link(t_links *links, t_data *data)
 					i++;
 				}
 			}
-			else if (i < size && size > 0 && tmp->is_in == 0)
+			else if (i < size && size > 0 && tmp->is_in == 0 && tmp->is_duplicate == 0)
 			{
 				if (!ft_strcmp(r_name, tmp->a)) 
 				{

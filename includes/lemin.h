@@ -6,7 +6,7 @@
 /*   By: thbrouss <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2018/12/19 15:37:55 by thbrouss     #+#   ##    ##    #+#       */
-/*   Updated: 2019/01/08 19:35:26 by thbrouss    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/01/09 19:54:07 by thbrouss    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -44,6 +44,7 @@ typedef struct	s_links
 	char *b;
 	int	 is_set;
 	int	 is_in;
+	int	 is_duplicate;
 	struct	s_links *next;
 }				t_links;
 
@@ -58,6 +59,8 @@ typedef struct s_data
 	int		y_end;	
 	char	*end;
 	int		n_ants;
+	int		have_end;
+	int		have_link;
 }				t_data;
 
 typedef struct	s_nodes
@@ -71,6 +74,7 @@ typedef struct	s_nodes
 	char	*link_a;
 	char	*link_b;
 	char	*r_name;
+	int		weight;
 	struct s_nodes **childs;
 }				t_nodes;
 
